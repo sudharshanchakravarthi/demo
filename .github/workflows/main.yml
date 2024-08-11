@@ -25,3 +25,6 @@ jobs:
         run: npm ci
       - name: Run tests
         run: npm test
+  deploy:
+    - name: deploy from other workflow
+      uses: ./github/workflows/reusable.yml
