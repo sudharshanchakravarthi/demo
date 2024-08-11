@@ -2,14 +2,24 @@ name: Test workflow
 on: push
 jobs:
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12,14]
+        operating-system: [ubuntu-latest,windows-latest]
+        include:
+          - node-version: 18
+            operating-system: ubuntu-latest
+        exclude:
+          - node-version: 12
+            operating-system: windows-latest
+    runs-on: ${{ matrix.operating-system}}
     steps:
       - name: get the code
         uses: actions/checkout@v3
       - name: install nodesjs
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: ${{matrix.node-version}}
       - name: install dependencies
         run: npm ci
       - name: Run tests
