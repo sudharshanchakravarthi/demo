@@ -26,5 +26,5 @@ jobs:
       - name: Run tests
         run: npm test
   deploy:
-    - name: deploy from other workflow
-      uses: ./github/workflows/reusable.yml
+     needs: test
+     uses: ./github/workflows/reusable.yml
